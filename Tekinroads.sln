@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekinroads.DAL", "Tekinroad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Layer", "Application Layer", "{F66C65DF-23AF-47FF-99B7-607D0FFF4984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekinroadsPortal", "TekinroadsPortal\TekinroadsPortal.csproj", "{826EBAFA-8E89-474D-9DFC-BE407DFB1AC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekinroadsPortal", "TekinroadsPortal\TekinroadsPortal.csproj", "{E9B0448D-115B-4AA9-8611-547DF53A5DBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{4CE0527B-EB61-4B22-A3DC-47429EC4400E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE0527B-EB61-4B22-A3DC-47429EC4400E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE0527B-EB61-4B22-A3DC-47429EC4400E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{826EBAFA-8E89-474D-9DFC-BE407DFB1AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{826EBAFA-8E89-474D-9DFC-BE407DFB1AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{826EBAFA-8E89-474D-9DFC-BE407DFB1AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{826EBAFA-8E89-474D-9DFC-BE407DFB1AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B0448D-115B-4AA9-8611-547DF53A5DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B0448D-115B-4AA9-8611-547DF53A5DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B0448D-115B-4AA9-8611-547DF53A5DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B0448D-115B-4AA9-8611-547DF53A5DBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF} = {728DC90D-BB84-43A0-A498-3E78B97DA352}
 		{4CE0527B-EB61-4B22-A3DC-47429EC4400E} = {CEB94710-2D5E-4539-8AFF-9D47B4057B41}
-		{826EBAFA-8E89-474D-9DFC-BE407DFB1AC4} = {F66C65DF-23AF-47FF-99B7-607D0FFF4984}
+		{E9B0448D-115B-4AA9-8611-547DF53A5DBA} = {F66C65DF-23AF-47FF-99B7-607D0FFF4984}
 	EndGlobalSection
 EndGlobal
