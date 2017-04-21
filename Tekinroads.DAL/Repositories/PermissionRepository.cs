@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Tekinroads.DAL
 {
-    public class Class1
+    class PermissionRepository 
     {
+        
     }
 }
