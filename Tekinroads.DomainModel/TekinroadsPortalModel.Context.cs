@@ -9,10 +9,9 @@
 
 namespace Tekinroads.DomainModel
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class TekinRoadsEntities : DbContext
     {
         public TekinRoadsEntities()

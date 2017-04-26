@@ -7,7 +7,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 
 
-namespace Tekinroads.DAL
+namespace Tekinroads.DomainModel
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class  {
     private TekinRoadsEntities _entities = new TekinRoadsEntities();
