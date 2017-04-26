@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access Layer", "Data A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Layer", "Application Layer", "{F66C65DF-23AF-47FF-99B7-607D0FFF4984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekinroadsPortal", "TekinroadsPortal\TekinroadsPortal.csproj", "{0C5189DD-D5CA-472C-ACFD-893B4834B477}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekinroads.DAL", "Tekinroads.DAL\Tekinroads.DAL.csproj", "{724492B8-1285-4537-80E4-D080A70BE98C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekinroadsPortal", "TekinroadsPortal\TekinroadsPortal.csproj", "{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,21 +25,21 @@ Global
 		{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C5189DD-D5CA-472C-ACFD-893B4834B477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C5189DD-D5CA-472C-ACFD-893B4834B477}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C5189DD-D5CA-472C-ACFD-893B4834B477}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C5189DD-D5CA-472C-ACFD-893B4834B477}.Release|Any CPU.Build.0 = Release|Any CPU
 		{724492B8-1285-4537-80E4-D080A70BE98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{724492B8-1285-4537-80E4-D080A70BE98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724492B8-1285-4537-80E4-D080A70BE98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724492B8-1285-4537-80E4-D080A70BE98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF} = {728DC90D-BB84-43A0-A498-3E78B97DA352}
-		{0C5189DD-D5CA-472C-ACFD-893B4834B477} = {F66C65DF-23AF-47FF-99B7-607D0FFF4984}
 		{724492B8-1285-4537-80E4-D080A70BE98C} = {CEB94710-2D5E-4539-8AFF-9D47B4057B41}
+		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812} = {F66C65DF-23AF-47FF-99B7-607D0FFF4984}
 	EndGlobalSection
 EndGlobal
