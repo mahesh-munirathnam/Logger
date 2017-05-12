@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Layer", "Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekinroads.DAL", "Tekinroads.DAL\Tekinroads.DAL.csproj", "{724492B8-1285-4537-80E4-D080A70BE98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tekinroads.DomainModel", "Tekinroads.DomainModel\Tekinroads.DomainModel.csproj", "{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekinroadsPortal", "TekinroadsPortal\TekinroadsPortal.csproj", "{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +41,5 @@ Global
 		{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF} = {728DC90D-BB84-43A0-A498-3E78B97DA352}
 		{724492B8-1285-4537-80E4-D080A70BE98C} = {CEB94710-2D5E-4539-8AFF-9D47B4057B41}
 		{F49E0DAD-E7F9-47F1-A0EF-182B1A851812} = {F66C65DF-23AF-47FF-99B7-607D0FFF4984}
-		{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03} = {CEB94710-2D5E-4539-8AFF-9D47B4057B41}
 	EndGlobalSection
 EndGlobal

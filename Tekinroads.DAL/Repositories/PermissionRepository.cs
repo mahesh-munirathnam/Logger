@@ -1,4 +1,4 @@
-﻿namespace Tekinroads.DomainModel
+﻿namespace Tekinroads.DAL
 {
     class PermissionRepository 
     {

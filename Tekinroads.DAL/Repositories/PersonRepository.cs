@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 
-namespace Tekinroads.DomainModel
+namespace Tekinroads.DAL
 {
     class PersonRepository 
     {
-        private TekinRoadsEntities personDB = new TekinRoadsEntities();
+        private TekinroadsEntities personDB = new TekinroadsEntities();
 
        public void Update(Person entity)
         {
             Person foundModel =
-                personDB.Person
+                personDB.People
                 .Where(a => a.PersonId.Equals(entity.PersonId))
                 .FirstOrDefault();
 
@@ -18,27 +18,27 @@ namespace Tekinroads.DomainModel
                 throw new Exception("Model not found");
 
             foundModel.Name = entity.Name;
-            personDB.Person.Add(foundModel);
+            personDB.People.Add(foundModel);
             personDB.SaveChanges();
         }
 
         public void Delete(byte Id)
         {
             Person foundModel =
-                personDB.Person
+                personDB.People
                 .Where(a => a.PersonId.Equals(Id))
                 .FirstOrDefault();
 
             if (foundModel == null)
                 throw new Exception("Model not found");
 
-            personDB.Person.Remove(foundModel);
+            personDB.People.Remove(foundModel);
             personDB.SaveChanges();
         }
 
         public Person SelectOne(byte Id)
         {
-            return personDB.Person
+            return personDB.People
                     .Where(a => a.PersonId.Equals(Id))
                     .FirstOrDefault();
         }

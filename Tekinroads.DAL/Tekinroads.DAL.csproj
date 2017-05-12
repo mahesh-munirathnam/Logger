@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -42,62 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Permission.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PersonPermission.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DomainModel\Permission.cs" />
+    <Compile Include="DomainModel\Person.cs" />
+    <Compile Include="DomainModel\PersonPermission.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />
     <Compile Include="Repositories\PersonPermissionRepository.cs" />
     <Compile Include="Repositories\PersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TekinroadsPortalModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TekinroadsPortalModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TekinroadsPortalModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TekinroadsPortalModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="DomainModel\TekinroadsEntities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="TekinroadsPortalModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TekinroadsPortalModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="TekinroadsPortalModel.edmx.diagram">
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TekinroadsPortalModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-      <LastGenOutput>TekinroadsPortalModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="TekinroadsPortalModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-      <LastGenOutput>TekinroadsPortalModel.cs</LastGenOutput>
-    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

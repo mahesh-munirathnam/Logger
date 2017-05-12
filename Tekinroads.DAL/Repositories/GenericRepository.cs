@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
+﻿using System.Linq;
+using Tekinroads.DAL;
 
-
-namespace Tekinroads.DomainModel
+namespace Tekinroads.DAL
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class  {
-    private TekinRoadsEntities _entities = new TekinRoadsEntities();
+    private TekinroadsEntities _entities = new TekinroadsEntities();
    
 
     public virtual IQueryable<T> GetAll() {
