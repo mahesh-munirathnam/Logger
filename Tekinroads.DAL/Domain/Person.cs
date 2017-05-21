@@ -1,4 +1,4 @@
-namespace Tekinroads.DAL
+namespace Tekinroads.DAL.Domain
 {
     using System;
     using System.Collections.Generic;
@@ -6,19 +6,22 @@ namespace Tekinroads.DAL
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Permission")]
-    public partial class Permission
+    [Table("Person")]
+    public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Permission()
+        public Person()
         {
             PersonPermissions = new HashSet<PersonPermission>();
         }
 
-        public long PermissionId { get; set; }
+        public long PersonId { get; set; }
 
         [StringLength(50)]
-        public string PermissionName { get; set; }
+        public string Name { get; set; }
+
+        [StringLength(50)]
+        public string Designation { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonPermission> PersonPermissions { get; set; }

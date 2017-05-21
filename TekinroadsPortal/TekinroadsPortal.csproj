@@ -577,15 +577,25 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\Enter.cshtml" />
-	<None Include="Web.Debug.config">
+    <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
-	</None>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tekinroads.BAL\Tekinroads.BAL.csproj">
+      <Project>{2b3311da-4968-4ee5-8d54-2baf575ae5ff}</Project>
+      <Name>Tekinroads.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tekinroads.DAL\Tekinroads.DAL.csproj">
+      <Project>{724492b8-1285-4537-80e4-d080a70be98c}</Project>
+      <Name>Tekinroads.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

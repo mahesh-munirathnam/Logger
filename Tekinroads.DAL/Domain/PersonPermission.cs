@@ -1,4 +1,4 @@
-namespace Tekinroads.DAL
+namespace Tekinroads.DAL.Domain
 {
     using System;
     using System.Collections.Generic;
