@@ -1,4 +1,4 @@
-namespace Tekinroads.DAL.Domain
+namespace Tekinroads.DAL
 {
     using System;
     using System.Collections.Generic;
@@ -19,6 +19,14 @@ namespace Tekinroads.DAL.Domain
 
         [StringLength(50)]
         public string PermissionName { get; set; }
+
+        public long CreatedBy { get; set; }
+
+        public long ModifiedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonPermission> PersonPermissions { get; set; }

@@ -14,9 +14,9 @@ namespace TekinroadsPortal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Login",
+                name: "Access",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Enter", id = UrlParameter.Optional }
+                defaults: new { controller = "Access", action = "Enter", id = UrlParameter.Optional }
             );
         }
     }

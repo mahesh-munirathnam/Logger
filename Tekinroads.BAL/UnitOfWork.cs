@@ -1,14 +1,14 @@
 ﻿using Tekinroads.BAL.Interfaces;
 using Tekinroads.BAL.Repositories;
-using Tekinroads.DAL.Domain;
+using Tekinroads.DAL;
 
 namespace Tekinroads.BAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly TekinroadsEntities _context;
+        private readonly DbEntities _context;
 
-        public UnitOfWork(TekinroadsEntities context)
+        public UnitOfWork(DbEntities context)
         {
             _context = context;
             Persons = new PersonRepository(_context);

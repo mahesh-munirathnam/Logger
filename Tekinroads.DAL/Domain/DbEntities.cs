@@ -1,14 +1,14 @@
-namespace Tekinroads.DAL.Domain
+namespace Tekinroads.DAL
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class TekinroadsEntities : DbContext
+    public partial class DbEntities : DbContext
     {
-        public TekinroadsEntities()
-            : base("name=TekinroadsEntities")
+        public DbEntities()
+            : base("name=DbEntities")
         {
         }
 
@@ -28,6 +28,14 @@ namespace Tekinroads.DAL.Domain
 
             modelBuilder.Entity<Person>()
                 .Property(e => e.Designation)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Person>()
+                .Property(e => e.Password)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Person>()
+                .Property(e => e.Email)
                 .IsUnicode(false);
         }
     }

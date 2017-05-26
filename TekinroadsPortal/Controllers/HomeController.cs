@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace TekinroadsPortal.Controllers
 {
-    public class LoginController : Controller
+    public class HomeController : Controller
     {
-        // GET: Login
-        public ActionResult Enter()
+        
+        public ActionResult DashBoard()
         {
             return View();
         }

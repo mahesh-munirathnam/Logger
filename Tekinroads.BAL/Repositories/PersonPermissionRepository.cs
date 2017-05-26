@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Tekinroads.BAL.Interfaces;
 using Tekinroads.DAL.Core;
-using Tekinroads.DAL.Domain;
+using Tekinroads.DAL;
 
 namespace Tekinroads.BAL.Repositories
 {

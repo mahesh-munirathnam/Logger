@@ -1,5 +1,5 @@
 ﻿using Tekinroads.DAL.Core;
-using Tekinroads.DAL.Domain;
+using Tekinroads.DAL;
 
 namespace Tekinroads.BAL.Interfaces
 {

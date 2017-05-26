@@ -1,4 +1,4 @@
-namespace Tekinroads.DAL.Domain
+namespace Tekinroads.DAL
 {
     using System;
     using System.Collections.Generic;
@@ -14,6 +14,14 @@ namespace Tekinroads.DAL.Domain
         public long PersonId { get; set; }
 
         public long PermissionId { get; set; }
+
+        public long CreatedBy { get; set; }
+
+        public long ModifiedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
         public virtual Permission Permission { get; set; }
 
