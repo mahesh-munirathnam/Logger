@@ -1,4 +1,4 @@
-namespace Tekinroads.DAL
+namespace Logger.DAL
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +13,8 @@ namespace Tekinroads.DAL
         public Person()
         {
             PersonPermissions = new HashSet<PersonPermission>();
+            Transactions = new HashSet<Transaction>();
+            TransactionTypes = new HashSet<TransactionType>();
         }
 
         public long PersonId { get; set; }
@@ -30,7 +32,7 @@ namespace Tekinroads.DAL
         public bool Is_Active { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(254)]
         public string Email { get; set; }
 
         public DateTime DateCreated { get; set; }
@@ -43,5 +45,11 @@ namespace Tekinroads.DAL
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonPermission> PersonPermissions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionType> TransactionTypes { get; set; }
     }
 }

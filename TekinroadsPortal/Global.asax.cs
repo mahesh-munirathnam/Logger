@@ -26,5 +26,10 @@ namespace TekinroadsPortal
                 }
             }
         }
+
+        protected void Application_Error()
+        {
+            Response.Redirect("Error/Index");
+        }
     }
 }

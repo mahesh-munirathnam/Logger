@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 
-namespace Tekinroads.DAL.Core
+namespace Logger.DAL.Core
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

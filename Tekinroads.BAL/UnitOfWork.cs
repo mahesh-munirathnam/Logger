@@ -1,14 +1,14 @@
-﻿using Tekinroads.BAL.Interfaces;
-using Tekinroads.BAL.Repositories;
-using Tekinroads.DAL;
+﻿using Logger.BAL.Interfaces;
+using Logger.BAL.Repositories;
+using Logger.DAL;
 
-namespace Tekinroads.BAL
+namespace Logger.BAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbEntities _context;
+        private readonly DBEntities _context;
 
-        public UnitOfWork(DbEntities context)
+        public UnitOfWork(DBEntities context)
         {
             _context = context;
             Persons = new PersonRepository(_context);

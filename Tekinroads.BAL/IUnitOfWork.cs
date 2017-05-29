@@ -1,7 +1,7 @@
 ﻿using System;
-using Tekinroads.BAL.Interfaces;
+using Logger.BAL.Interfaces;
 
-namespace Tekinroads.BAL
+namespace Logger.BAL
 {
     public interface IUnitOfWork : IDisposable
     {

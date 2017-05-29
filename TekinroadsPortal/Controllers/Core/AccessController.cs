@@ -2,8 +2,8 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Tekinroads.BAL;
-using Tekinroads.DAL;
+using Logger.BAL;
+using Logger.DAL;
 using TekinroadsPortal.Models;
 
 namespace TekinroadsPortal.Controllers
@@ -22,7 +22,7 @@ namespace TekinroadsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var UnitOfWork = new UnitOfWork(new DbEntities()))
+                using (var UnitOfWork = new UnitOfWork(new DBEntities()))
                 {
                     var user = UnitOfWork.Persons.ValidUser(login.Email, login.Password);
                     if (user != null)

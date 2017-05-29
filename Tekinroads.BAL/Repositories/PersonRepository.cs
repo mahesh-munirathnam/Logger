@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
-using Tekinroads.BAL.Interfaces;
-using Tekinroads.DAL.Core;
-using Tekinroads.DAL;
+using Logger.BAL.Interfaces;
+using Logger.DAL.Core;
+using Logger.DAL;
 using System;
 
-namespace Tekinroads.BAL.Repositories
+namespace Logger.BAL.Repositories
 {
     public class PersonRepository : Repository<Person>, IPersonRepository
     {

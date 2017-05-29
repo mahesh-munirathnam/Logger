@@ -1,4 +1,4 @@
-namespace Tekinroads.DAL
+namespace Logger.DAL
 {
     using System;
     using System.Collections.Generic;

@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
-using Tekinroads.DAL;
+using Logger.DAL;
 
 namespace TekinroadsPortal.Controllers.Data
 {
     public class PersonPermissionsController : Controller
     {
-        private DbEntities db = new DbEntities();
+        private DBEntities db = new DBEntities();
 
         // GET: PersonPermissions
         public async Task<ActionResult> Index()

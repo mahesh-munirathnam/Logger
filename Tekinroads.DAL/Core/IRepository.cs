@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Tekinroads.DAL.Core
+namespace Logger.DAL.Core
 {
     public interface IRepository<TEntity> where TEntity : class
     {

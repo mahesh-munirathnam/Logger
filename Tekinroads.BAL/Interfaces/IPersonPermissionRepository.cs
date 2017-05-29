@@ -1,7 +1,7 @@
-﻿using Tekinroads.DAL.Core;
-using Tekinroads.DAL;
+﻿using Logger.DAL.Core;
+using Logger.DAL;
 
-namespace Tekinroads.BAL.Interfaces
+namespace Logger.BAL.Interfaces
 {
     public interface IPersonPermissionRepository : IRepository<PersonPermission>
     {

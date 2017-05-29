@@ -1,20 +1,23 @@
-namespace Tekinroads.DAL
+namespace Logger.DAL
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class DbEntities : DbContext
+    public partial class DBEntities : DbContext
     {
-        public DbEntities()
-            : base("name=DbEntities")
+        public DBEntities()
+            : base("name=DBEntities")
         {
         }
 
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PersonPermission> PersonPermissions { get; set; }
+        public virtual DbSet<PersonSession> PersonSessions { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<TransactionType> TransactionTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,8 +38,29 @@ namespace Tekinroads.DAL
                 .IsUnicode(false);
 
             modelBuilder.Entity<Person>()
-                .Property(e => e.Email)
+                .HasMany(e => e.Transactions)
+                .WithRequired(e => e.Person)
+                .HasForeignKey(e => e.CreatedBy)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(e => e.TransactionTypes)
+                .WithRequired(e => e.Person)
+                .HasForeignKey(e => e.CreatedBy)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<PersonSession>()
+                .Property(e => e.AuthToken)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Transaction>()
+                .Property(e => e.Amount)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<TransactionType>()
+                .HasMany(e => e.Transactions)
+                .WithRequired(e => e.TransactionType)
+                .WillCascadeOnDelete(false);
         }
     }
 }

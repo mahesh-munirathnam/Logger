@@ -1,9 +1,9 @@
 ﻿using System.Data.Entity;
-using Tekinroads.BAL.Interfaces;
-using Tekinroads.DAL.Core;
-using Tekinroads.DAL;
+using Logger.BAL.Interfaces;
+using Logger.DAL.Core;
+using Logger.DAL;
 
-namespace Tekinroads.BAL.Repositories
+namespace Logger.BAL.Repositories
 {
     public class PersonPermissionRepository : Repository<PersonPermission>, IPersonPermissionRepository
     {
