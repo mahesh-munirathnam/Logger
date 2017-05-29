@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B993C9A-D8B0-4A55-9C58-3471AA5D6F03}</ProjectGuid>
+    <ProjectGuid>{2B3311DA-4968-4EE5-8D54-2BAF575AE5FF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tekinroads.DomainModel</RootNamespace>
-    <AssemblyName>Tekinroads.DomainModel</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Logger.BAL</RootNamespace>
+    <AssemblyName>Logger.BAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,66 +41,32 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Permission.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PersonPermission.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\IPermissionRepository.cs" />
+    <Compile Include="Interfaces\IPersonPermissionRepository.cs" />
+    <Compile Include="Interfaces\IPersonRepository.cs" />
+    <Compile Include="Interfaces\IPersonSessionRepository.cs" />
+    <Compile Include="Interfaces\ITransactionRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TekinroadsPortalModel.Context.cs">
-      <DependentUpon>TekinroadsPortalModel.Context.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="TekinroadsPortalModel.cs">
-      <DependentUpon>TekinroadsPortalModel.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="TekinroadsPortalModel.Designer.cs">
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <Compile Include="Repositories\PermissionRepository.cs" />
+    <Compile Include="Repositories\PersonPermissionRepository.cs" />
+    <Compile Include="Repositories\PersonRepository.cs" />
+    <Compile Include="Repositories\PersonSessionRepository.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="TekinroadsPortalModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TekinroadsPortalModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TekinroadsPortalModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-      <LastGenOutput>TekinroadsPortalModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="TekinroadsPortalModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-      <LastGenOutput>TekinroadsPortalModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="TekinroadsPortalModel.edmx.diagram">
-      <DependentUpon>TekinroadsPortalModel.edmx</DependentUpon>
-    </None>
+    <ProjectReference Include="..\Logger.DAL\Logger.DAL.csproj">
+      <Project>{724492b8-1285-4537-80e4-d080a70be98c}</Project>
+      <Name>Logger.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
