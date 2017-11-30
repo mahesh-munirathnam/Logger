@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace TekinroadsPortal.Controllers
+namespace LoggerPortal.Controllers
 {
     public class FinanceController : Controller
     {

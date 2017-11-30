@@ -14,9 +14,9 @@ namespace Logger.DAL.Core
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
         void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        //void AddRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);
-        void RemoveRange(IEnumerable<TEntity> entities);
+        //void RemoveRange(IEnumerable<TEntity> entities);
     }
 }

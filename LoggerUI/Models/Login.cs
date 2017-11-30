@@ -4,13 +4,12 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace TekinroadsPortal.Models
+namespace LoggerPortal.Models
 {
     public class Login
     {
 
         [Required]
-        [EmailAddress]
         [StringLength(254)]
         [Display(Name = "Email Address")]
         public string Email { get; set; }

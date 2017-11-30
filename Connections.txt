@@ -1,0 +1,2 @@
+---Prod connection string
+Data Source=103.21.58.192;Initial Catalog=LoggerDB;User ID=MaheshAdmin;Password=***********

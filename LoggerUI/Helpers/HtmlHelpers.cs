@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 
 //Your Project Namespace here
-namespace LoggerPortal.HtmlHelpers
+namespace LoggerPortal.Helper
 {
     //Example of a Static class
-    public static class HtmlHelpers
+    public static class Helper
     {
         public static string ActivePage(this HtmlHelper helper, string controller)
         {

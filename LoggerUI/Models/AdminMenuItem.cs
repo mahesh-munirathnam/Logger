@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TekinroadsPortal.Models
+namespace LoggerPortal.Models
 {
     public class AdminMenuItem
     {

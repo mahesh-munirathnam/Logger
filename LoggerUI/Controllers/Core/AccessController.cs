@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Logger.BAL;
 using Logger.DAL;
-using TekinroadsPortal.Models;
+using LoggerPortal.Models;
 
-namespace TekinroadsPortal.Controllers
+namespace LoggerPortal.Controllers
 {
     public class AccessController : Controller
     {
