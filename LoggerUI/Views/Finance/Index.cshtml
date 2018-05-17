@@ -1,52 +1,77 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-<div class="span12">
-    <!-- /widget -->
-    <div class="widget widget-nopad">
-        <div class="widget-header">
-            <i class="icon-list-alt"></i>
-            <h3>Add Income/Expenditure</h3>
-        </div>
-        <!-- /widget-header -->
-        <div class="widget-content">
-            <div class="widget big-stats-container" style="margin-bottom:0px">
-                <div class="widget-content">
-                    <div class="form-inline">
-                            <!-- /controls -->
-                            <div class="form-group">
-                                <label for="Date">Enter Date</label>
-                                <input class="form-control" id="Date" type="date" value="Enter Date">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Amount">Enter Amount</label>
-                                <input class="form-control" id="Amount" type="number" value="Enter Amount">
-                            </div>
-
-                            <div class="form-actions" style="margin:0px">
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
+@Scripts.Render("~/bundles/ko")
+<button class="btn btn-success" data-bind="click: openDialog">Add</button>
+@* Input data widget *@
+<div id="DataDialog" class="widget widget-nopad" style="display:none">
+    <div class="widget-header">
+        <i class="icon-list-alt"></i>
+        <h3>Add Income/Expenditure</h3>
+    </div>
+    <div class="widget-content">
+        <div class="widget big-stats-container" style="margin-bottom:0px">
+            <div class="widget-content">
+                <form class="form">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="Income" class="radio-inline"><input name="TType" value="Income" type="radio" data-bind="checked: TType"/>Income</label>
+                        <label for="Expenditure" class="radio-inline"><input name="TType" value="Expenditure"  data-bind="checked: TType" type="radio"/>Expenditure</label>
                     </div>
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label for="email">Email address:</label>
-                            <input type="email" class="form-control" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Password:</label>
-                            <input type="password" class="form-control" id="pwd">
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox"> Remember me</label>
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                </div>
-                <!-- /widget-content -->
-
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="Date">Date</label>
+                        <input class="form-control" data-bind="value: TDate" type="date" value='@DateTime.Today.ToString("yyyy-MM-dd")' />
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="Amount">Amount</label>
+                        <input class="form-control" data-bind="value: TAmount" type="number" placeholder="Enter Amount">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="Amount">Description</label>
+                        <input class="form-control" data-bind="value: TDesc" type="text" placeholder="Enter Description">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary" data-bind="click: TAdd">Add</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+@section ViewModel {
+    <script type="text/javascript">
+        function FinanceViewModel() {
+            var self = this;
+            self.TAmount = ko.observable();
+            self.TDate = ko.observable();
+            self.TDesc = ko.observable();
+            self.TType = ko.observable();
+
+            self.openDialog = function () {
+                DataDialog.dialog("open");
+            };
+
+            self.closeDialog = function () {
+                DataDialog.dialog('close');
+            };
+
+            self.TAdd = function()
+            {
+                debugger;
+                alert(self.TAmount());
+                alert(self.TDate());
+                alert(self.TDesc());
+                alert(self.TType());
+            }
+
+            var DataDialog = $('#DataDialog').dialog({
+                modal: true,
+                autoResize: false,
+                close: self.closeDialog(),
+                autoOpen: false
+            });
+        }
+
+        ko.applyBindings(new FinanceViewModel());
+    </script>
+}

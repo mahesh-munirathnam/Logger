@@ -1,7 +1,9 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace LoggerUI
 {
@@ -19,6 +21,21 @@ namespace LoggerUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+        }
+
+        ///// <summary>
+        ///// This method execute when session time expired
+        ///// </summary>
+        //protected void Session_End()
+        //{
+        //    Response.Redirect("~/Error/Index");
+        //}
+
+        void Application_Error()
+        {
+            Exception ex = this.Server.GetLastError().GetBaseException();
+            FormsAuthentication.SignOut();
+            this.Response.Redirect("~/Error/Index");
         }
     }
 }
