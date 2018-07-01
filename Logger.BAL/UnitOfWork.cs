@@ -14,11 +14,15 @@ namespace Logger.BAL
             Persons = new PersonRepository(_context);
             Permissions = new PermissionRepository(_context);
             PersonPermissions = new PersonPermissionRepository(_context);
+            Transactions = new TransactionRepository(_context);
+            Activities = new ActivityRepository(_context);
         }
 
         public IPersonRepository Persons { get; private set; }
         public IPermissionRepository Permissions { get; private set; }
         public IPersonPermissionRepository PersonPermissions { get; private set; }
+        public ITransactionRepository Transactions { get; private set; }
+        public IActivityRepository Activities { get; private set; }
 
         public int Complete()
         {

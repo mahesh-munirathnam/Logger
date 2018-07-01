@@ -1,11 +1,13 @@
 namespace Logger.DAL
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
-    [Table("Transaction")]
-    public partial class Transaction
+    [Table("FinancialTransaction")]
+    public partial class FinancialTransaction
     {
         public long ID { get; set; }
 

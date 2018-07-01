@@ -4,6 +4,7 @@ namespace Logger.DAL
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("mst.TransactionType")]
     public partial class TransactionType
@@ -11,7 +12,7 @@ namespace Logger.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TransactionType()
         {
-            Transactions = new HashSet<Transaction>();
+            FinancialTransactions = new HashSet<FinancialTransaction>();
         }
 
         public long ID { get; set; }
@@ -27,9 +28,9 @@ namespace Logger.DAL
 
         public long CreatedBy { get; set; }
 
-        public virtual Person Person { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual ICollection<FinancialTransaction> FinancialTransactions { get; set; }
+
+        public virtual Person Person { get; set; }
     }
 }

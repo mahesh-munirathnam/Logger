@@ -1,7 +1,10 @@
 namespace Logger.DAL
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("PersonPermission")]
     public partial class PersonPermission
@@ -20,8 +23,8 @@ namespace Logger.DAL
 
         public DateTime ModifiedDate { get; set; }
 
-        public virtual Permission Permission { get; set; }
-
         public virtual Person Person { get; set; }
+
+        public virtual Permission Permission { get; set; }
     }
 }

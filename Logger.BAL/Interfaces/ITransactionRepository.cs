@@ -9,7 +9,7 @@ namespace Logger.BAL.Interfaces
         Expenditure = 2
     }
 
-    public interface ITransactionRepository : IRepository<Transaction>
+    public interface ITransactionRepository : IRepository<FinancialTransaction>
     {
 
     }

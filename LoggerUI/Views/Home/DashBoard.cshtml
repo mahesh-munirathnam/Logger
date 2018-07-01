@@ -2,141 +2,111 @@
     ViewBag.Title = "DashBoard";
 }
 @Scripts.Render("~/bundles/ko")
-<style>
-    @@media (min-width: 576px) .bd-example {
-        padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
-    }
+@section Styles {
+    <style>
+        @@media (min-width: 576px) .bd-example {
+            padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
+        }
 
-    .bd-example {
-        position: relative;
-        padding: 1rem;
-        margin: 1rem 0;
-        border: solid #f7f7f9;
-        border-width: .2rem;
-    }
-</style>
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: solid #f7f7f9;
+            border-width: .2rem;
+        }
+    </style>
+}
 <div class="row">
     <div class="col-lg col-sm">
         <h2>DashBoard</h2>
     </div>
 </div>
 <div class="row">
-    @*<div class="col-4 col-sm-4">
-            <p>First Name: <strong data-bind="text: firstName"></strong></p>
-            <p>Last Name: <strong data-bind="text: lastName"></strong></p>
-            <p>Full Name: <strong data-bind="text: fullName"></strong></p>
-            <p>First Name: <input data-bind="value: firstName" /></p>
-            <p>Last Name: <input data-bind="value: lastName" /></p>
+    <div class="col-5 col-sm-12 bd-example">
+        <span><strong>Month:</strong></span>
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(1)}">1</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(2)}">2</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(3)}">3</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(4)}">4</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(5)}">5</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(6)}">6</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(7)}">7</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(8)}">8</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(9)}">9</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(10)}">10</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(11)}">11</button>
+            <button type="button" class="btn btn-secondary" data-bind="click: function(){updatefinancials(12)}">12</button>
         </div>
-        <div class="col-4 col-sm-4">
-            <div>you've clicked <span data-bind="text: noofClicks"></span></div>
-            <button value="click" data-bind="click: click, disable: clickOverload">click</button>
-            <span data-bind="visible: clickOverload"> you have done a click overload!!!!!!!!!!!!!!!!1</span>
-            <button data-bind="click: resetclick">reset</button>
-        </div>
-        <div class="col-4 col-sm-4">
-            <form data-bind="submit: addItem">
-                New item:
-                <input data-bind="value: todo, valueUpdate: 'afterkeydown'" />
-                <button type="submit" data-bind="enable: todoList().length >= 0">Add</button>
-                <p>Items:</p>
-                <select multiple="multiple" width="50" data-bind="options: todoList, selectedOptions: selectedtodo"></select>
-            </form>
-            <button data-bind="click: Remove, enable: todoList().length > 0">Remove</button>
-            <button data-bind="click: Sort, enable: todoList().length >2">Sort</button>
-        </div>*@
-    <div class="bd-example" data-example-id="">
-        <form data-bind="submit: addTransaction" class="form-inline">
-            <div class="form-group">
-                <label for="transactionDesc" class="sr-only">Transaction Description</label>
-                <input id="transactionDesc" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Desc" type="text" placeholder="Transaction Description" />
-            </div>
-            <div class="form-group">
-                <label for="transactionAmount" class="sr-only">Transaction Amount</label>
-                <input id="transactionAmount" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Amount" type="number" placeholder="Transaction Amount" />
-            </div>
-            <div class="form-group">
-                <label for="transactionDate" class="sr-only">Transaction Date</label>
-                <input id="transactionDate" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Date" type="datetime-local" placeholder="Transaction Date" />
-            </div>
-            <button class="btn btn-success" data-bind="click: addTransaction">Add Transaction</button>
+        <p></p>
+        <p>
+            <span>Month Income: <strong data-bind="text: formatCurrency(TIncome())"></strong></span>&nbsp;
+            <span>Month Expenditure: <strong data-bind="text: formatCurrency(TExpenditure())"></strong></span>
+        </p>
+        <button class="btn btn-danger">Print Statement</button>
+    </div>
+    <div class="col-4 col-sm-4">
+        <div>you've clicked <span data-bind="text: noofClicks"></span></div>
+        <button value="click" data-bind="click: click, disable: clickOverload">click</button>
+        <span data-bind="visible: clickOverload"> you have done a click overload!!!!!!!!!!!!!!!!1</span>
+        <button data-bind="click: resetclick">reset</button>
+    </div>
+    <div class="col-4 col-sm-4">
+        <form data-bind="submit: addItem">
+            New item:
+            <input data-bind="value: todo, valueUpdate: 'afterkeydown'" />
+            <button type="submit" data-bind="enable: todoList().length >= 0">Add</button>
+            <p>Items:</p>
+            <select multiple="multiple" width="50" data-bind="options: todoList, selectedOptions: selectedtodo"></select>
         </form>
+        <button data-bind="click: Remove, enable: todoList().length > 0">Remove</button>
+        <button data-bind="click: Sort, enable: todoList().length >2">Sort</button>
     </div>
 </div>
-<div class="row">
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: transactions">
-            <tr>
-                <td data-bind="text: Date"></td>
-                <td data-bind="text: Desc"></td>
-                <td data-bind="text: Amount"></td>
-                <td><a href='#' data-bind='click: $root.removeTransaction'>Remove</a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 @* Script tag *@
-<script type="text/javascript">
-    var TransactionModel = function (d, a, dt) {
-        var self = this;
-        self.Desc = ko.observable(d);
-        self.Amount = ko.observable('₹' + a + '/-');
-        self.Date = ko.observable(dt);
-    }
-    function DashBoardViewModel() {
-        var self = this;
-        //self.firstName = ko.observable("Mahesh");
-        //self.lastName = ko.observable("Munirathnam");
-        //self.fullName = ko.computed(function () {
-        //    return self.firstName() + " " + self.lastName();
-        //});
-        //self.noofClicks = ko.observable(0);
-        //self.click = function () {
-        //    self.noofClicks(self.noofClicks() + 1);
-        //}
-        //self.clickOverload = ko.computed(function () {
-        //    return self.noofClicks() >= 10;
-        //});
-        //self.resetclick = function () {
-        //    self.noofClicks(0);
-        //}
-        //self.todoList = ko.observableArray();
-        //self.selectedtodo = ko.observableArray();
-        //self.todo = ko.observable("");
-        //self.addItem = function () {
-        //    if (self.todo() != "") {
-        //        self.todoList.push(self.todo());
-        //        self.todo("");
-        //    }
-        //}.bind(this);
-        //self.Remove = function () {
-        //    self.todoList.removeAll(self.selectedtodo())
-        //}
-        //self.Sort = function () {
-        //    self.todoList.sort();
-        //}
-        self.Desc = ko.observable("");
-        self.Amount = ko.observable(0);
-        self.Date = ko.observable();
-        self.transactions = ko.observableArray([new TransactionModel("", "0", "")]);
-
-        self.addTransaction = function () {
-            if (self.Desc() != null && self.Amount() != null && self.Date() != null) {
-                self.transactions.push(new TransactionModel(self.Desc(), self.Amount(), self.Date()));
+@section ViewModel {
+    @* Script tag *@
+    <script type="text/javascript">
+        function DashBoardViewModel() {
+            var self = this;
+            self.TIncome = ko.observable(@Html.Raw(ViewBag.TIncome));
+            self.TExpenditure = ko.observable(@Html.Raw(ViewBag.TExpenditure));
+            self.selectedMonth = ko.observable(@DateTime.Now.Month);
+            self.updatefinancials = function (m) {
+                $.postJSON("GetMontlyFinance", JSON.stringify({ month: m }), function (data, status, xhr) {
+                    // This callback is executed if the post was successful
+                    self.TIncome(data.TIncome);
+                    self.TExpenditure(data.TExpenditure);
+                    self.selectedMonth = m;
+                });
             }
-        };
-
-        self.removeTransaction = function (t) {
-            self.transactions.remove(t);
+            self.noofClicks = ko.observable(0);
+            self.click = function () {
+                self.noofClicks(self.noofClicks() + 1);
+            }
+            self.clickOverload = ko.computed(function () {
+                return self.noofClicks() >= 10;
+            });
+            self.resetclick = function () {
+                self.noofClicks(0);
+            }
+            self.todoList = ko.observableArray();
+            self.selectedtodo = ko.observableArray();
+            self.todo = ko.observable("");
+            self.addItem = function () {
+                if (self.todo() != "") {
+                    self.todoList.push(self.todo());
+                    self.todo("");
+                }
+            }.bind(this);
+            self.Remove = function () {
+                self.todoList.removeAll(self.selectedtodo())
+            }
+            self.Sort = function () {
+                self.todoList.sort();
+            }
         }
-    }
-    ko.applyBindings(new DashBoardViewModel());
-</script>
+        ko.applyBindings(new DashBoardViewModel());
+    </script>
+}

@@ -3,5 +3,134 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@Scripts.Render("~/bundles/ko")
+@section Styles {
+    <style>
+        @@media (min-width: 576px) .bd-example {
+            padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
+        }
 
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: solid #f7f7f9;
+            border-width: .2rem;
+        }
+    </style>
+}
+@* Header *@
+<div class="row">
+    <h6>Activity:</h6>
+</div>
+@* Data Entry Form *@
+<div class="row">
+    <div class="bd-example" data-example-id="">
+        <form action="" data-bind="submit: addActivity" class="form-inline">
+            <div class="form-group">
+                <label for="activityDate" class="sr-only">Date</label>
+                <input id="activityDate" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" placeholder="Date" required />
+            </div>
+            <div class="form-group">
+                <label for="activityStartTime" class="sr-only">Time Start</label>
+                <input id="activityStartTime" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: STime" value="@DateTime.Now.ToString("HH:mm:ss")" type="time" placeholder="Start Time" required />
+            </div>
+            <div class="form-group">
+                <label for="activityEndTime" class="sr-only">Time End</label>
+                <input id="activityEndTime" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Etime" value="@DateTime.Now.ToString("HH:mm:ss")" type="time" placeholder="End Time" required />
+            </div>
+            <div class="form-group">
+                <label for="activityDesc" class="sr-only">Log</label>
+                <input id="activityDesc" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Desc" type="text" placeholder="Description" required />
+            </div>
+            <button class="btn btn-success" data-bind="click: addActivity">Add Activity</button>
+        </form>
+    </div>
+</div>
+
+@* Data Display Table *@
+<div class="row">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Log</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Activities">
+            <tr>
+                <td data-bind="text: Date"></td>
+                <td data-bind="text: StartTime"></td>
+                <td data-bind="text: EndTime"></td>
+                <td data-bind="text: Wlog"></td>
+                <td><span class="icon icon-trash" data-bind='click: $root.removeActivity' /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@* Script tag *@
+@section ViewModel {
+    <script type="text/javascript">
+        var Activities = @Html.Raw(ViewBag.activities);
+
+        var ActivityModel = function (i, d, st, et, wl) {
+            var self = this;
+            self.ID = i;
+            self.Date = ko.observable(new Date(d).toDateString());
+            self.StartTime = ko.observable(st);
+            self.EndTime = ko.observable(et);
+            self.Wlog = ko.observable(wl);
+        }
+
+        function ViewModel(Activities) {
+            var self = this;
+            self.Desc = ko.observable("").extend({ required: true });
+            self.Date = ko.observable('@DateTime.Now.ToString("yyyy-MM-dd")').extend({ required: true });
+            self.STime = ko.observable('@DateTime.Now.ToString("HH:mm:ss")').extend({ required: true });
+            self.Etime = ko.observable('@DateTime.Now.ToString("HH:mm:ss")').extend({ required: true });
+            if(Activities)
+            {
+                self.Activities = ko.observableArray(ko.utils.arrayMap(Activities, function(a) {
+                    return new ActivityModel(a.ID,a.Date,a.StartTime,a.EndTime,a.WLog)}));
+            }
+            else{
+                self.Activities = ko.observableArray([new ActivityModel(0,'@DateTime.Now.Date','@DateTime.Now.TimeOfDay','@DateTime.Now.TimeOfDay',"test")])
+            }
+
+            self.addActivity = function () {
+                if (self.Desc() != null && self.Date() != null && self.STime() != null && self.Etime() != null) {
+                    var a = new ActivityModel(0, self.Date(), self.STime(), self.Etime(),self.Desc());
+                    var data = ko.toJSON(a);
+                    $.postJSON("AddActivity", data, function(data, status, xhr) {
+                        // This callback is executed if the post was successful
+                        a.ID = data.ID
+                        self.Activities.push(a);
+                        alert("successfully added the record");
+                    });
+
+                }
+                else
+                {
+                    alert("All data not entered!!!")
+                }
+            };
+
+            self.removeActivity = function (a) {
+                if(confirm("Are you sure you want to delete the record?")){
+                    var data = ko.toJSON(a);
+                    $.postJSON("RemoveActivity", data, function(data, status, xhr) {
+                        self.Activities.remove(a);
+                        alert("successfully removed the record");
+                    });
+                }
+
+            }
+        }
+
+        ko.applyBindings(new ViewModel(Activities));
+    </script>
+}

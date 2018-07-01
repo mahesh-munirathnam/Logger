@@ -4,15 +4,16 @@ namespace Logger.DAL
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
-    [Table("Person")]
     public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
+            Activities = new HashSet<Activity>();
+            FinancialTransactions = new HashSet<FinancialTransaction>();
             PersonPermissions = new HashSet<PersonPermission>();
-            Transactions = new HashSet<Transaction>();
             TransactionTypes = new HashSet<TransactionType>();
         }
 
@@ -43,10 +44,13 @@ namespace Logger.DAL
         public long ModifiedBy { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonPermission> PersonPermissions { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual ICollection<FinancialTransaction> FinancialTransactions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonPermission> PersonPermissions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionType> TransactionTypes { get; set; }

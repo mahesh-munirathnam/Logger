@@ -21,6 +21,12 @@
     <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
+    @RenderSection("Styles", required: false)
+    <style>
+        .navbar-dark .navbar-nav .nav-link > i{
+            margin-right: 4px;
+        }
+    </style>
 </head>
 <body>
     @* Header/nav Bar *@
@@ -36,7 +42,7 @@
                 <li class="nav-item @Html.ActivePage("Finance")"><a class="nav-link"  href="@Url.Action("Index","Finance")"><i class="icon-money"></i><span>Finance</span> </a> </li>
                 <li class="nav-item @Html.ActivePage("Workout")"><a class="nav-link" href="@Url.Action("Index","Workout")"><i class="icon-play-circle"></i><span>Workout</span> </a></li>
                 <li class="nav-item @Html.ActivePage("Activity")"><a class="nav-link" href="@Url.Action("Index","Activity")"><i class="icon-book"></i><span>Activity</span> </a> </li>
-                <li class="nav-item @Html.ActivePage("Account")"><a class="nav-link" href="@Url.Action("Index","Account")"><i class="icon-group"></i><span>Accounts</span> </a> </li>
+                <li class="nav-item @Html.ActivePage("Account")"><a class="nav-link" href="@Url.Action("Index","People")"><i class="icon-group"></i><span>Accounts</span> </a> </li>
             </ul>
             <form class="form-inline my-2 my-lg-0 pull-right" action="@Url.Action("Exit", "Access")">
                 @*<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">*@
@@ -73,6 +79,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script language="javascript" type="text/javascript" src="~/Scripts/full-calendar/fullcalendar.min.js"></script>
     <script src="~/Scripts/base.js"></script>
+    <script src="~/Scripts/Helper.js"></script>
     @RenderSection("ViewModel", required: false)
 </body>
 </html>

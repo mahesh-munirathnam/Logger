@@ -2,76 +2,129 @@
     ViewBag.Title = "Index";
 }
 @Scripts.Render("~/bundles/ko")
-<button class="btn btn-success" data-bind="click: openDialog">Add</button>
-@* Input data widget *@
-<div id="DataDialog" class="widget widget-nopad" style="display:none">
-    <div class="widget-header">
-        <i class="icon-list-alt"></i>
-        <h3>Add Income/Expenditure</h3>
-    </div>
-    <div class="widget-content">
-        <div class="widget big-stats-container" style="margin-bottom:0px">
-            <div class="widget-content">
-                <form class="form">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="Income" class="radio-inline"><input name="TType" value="Income" type="radio" data-bind="checked: TType"/>Income</label>
-                        <label for="Expenditure" class="radio-inline"><input name="TType" value="Expenditure"  data-bind="checked: TType" type="radio"/>Expenditure</label>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="Date">Date</label>
-                        <input class="form-control" data-bind="value: TDate" type="date" value='@DateTime.Today.ToString("yyyy-MM-dd")' />
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="Amount">Amount</label>
-                        <input class="form-control" data-bind="value: TAmount" type="number" placeholder="Enter Amount">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="Amount">Description</label>
-                        <input class="form-control" data-bind="value: TDesc" type="text" placeholder="Enter Description">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <button type="submit" class="btn btn-primary" data-bind="click: TAdd">Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section ViewModel {
-    <script type="text/javascript">
-        function FinanceViewModel() {
-            var self = this;
-            self.TAmount = ko.observable();
-            self.TDate = ko.observable();
-            self.TDesc = ko.observable();
-            self.TType = ko.observable();
-
-            self.openDialog = function () {
-                DataDialog.dialog("open");
-            };
-
-            self.closeDialog = function () {
-                DataDialog.dialog('close');
-            };
-
-            self.TAdd = function()
-            {
-                debugger;
-                alert(self.TAmount());
-                alert(self.TDate());
-                alert(self.TDesc());
-                alert(self.TType());
-            }
-
-            var DataDialog = $('#DataDialog').dialog({
-                modal: true,
-                autoResize: false,
-                close: self.closeDialog(),
-                autoOpen: false
-            });
+@section Styles {
+    <style>
+        @@media (min-width: 576px) .bd-example {
+            padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
         }
 
-        ko.applyBindings(new FinanceViewModel());
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: solid #f7f7f9;
+            border-width: .2rem;
+        }
+    </style>
+}
+@* Header *@
+<div class="row">
+    <h6>Transactions:</h6>
+</div>
+@* Data Entry Form *@
+<div class="row">
+    <div class="bd-example" data-example-id="">
+        <form action="" data-bind="submit: addTransaction" class="form-inline">
+            <div class="form-group">
+                <label for="transactionDesc" class="sr-only">Transaction Type</label>
+                <select id="transactionType" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="options: Type, optionsCaption: 'Select',optionsText:'name',optionsValue:'value', value:TransactionType" type="text" placeholder="Transaction Type" />
+            </div>
+            <div class="form-group">
+                <label for="transactionDesc" class="sr-only">Transaction Description</label>
+                <input id="transactionDesc" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Desc" type="text" placeholder="Description" required/>
+            </div>
+            <div class="form-group">
+                <label for="transactionAmount" class="sr-only">Transaction Amount</label>
+                <input id="transactionAmount" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Amount" min="0" max="1000000" type="number" placeholder="Amount" required/>
+            </div>
+            <div class="form-group">
+                <label for="transactionDate" class="sr-only">Transaction Date</label>
+                <input id="transactionDate" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="datetime-local" placeholder="Transaction Date" required/>
+            </div>
+            <button class="btn btn-success" data-bind="click: addTransaction">Add Transaction</button>
+        </form>
+    </div>
+</div>
+@* Data Display Table *@
+<div class="row">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: transactions">
+            <tr>
+                <td data-bind="text: Type"></td>
+                <td data-bind="text: DateCreated"></td>
+                <td data-bind="text: Description"></td>
+                <td data-bind="text: formatCurrency(Amount())"></td>
+                <td><span class="icon icon-trash" data-bind='click: $root.removeTransaction' /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@* Script tag *@
+@section ViewModel {
+    <script type="text/javascript">
+        var transactions = @Html.Raw(ViewBag.transactions);
+        var tranTypes = [{name:'Income',value:1}, {name:'Expenditure',value:2}];
+        var TransactionModel = function (i, d, a, dt, tt) {
+            var self = this;
+            self.ID = i;
+            self.Description = ko.observable(d);
+            self.Amount = ko.observable(a);
+            self.Type = ko.observable(tt.name);
+            self.TransactionTypeID = ko.observable(tt.value);
+            self.DateCreated = ko.observable(new Date(dt).toLocaleString());
+        }
+        function DashBoardViewModel(transactions) {
+            var self = this;
+            self.Desc = ko.observable("").extend({ required: true });
+            self.Amount = ko.observable().extend({ required: true });
+            self.Date = ko.observable('@DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")').extend({ required: true });
+            self.Type = ko.observableArray(tranTypes);
+            self.TransactionType = ko.observable().extend({ required: true });
+            if(transactions)
+            {
+                self.transactions = ko.observableArray(ko.utils.arrayMap(transactions, function(t) {
+                    return new TransactionModel(t.ID,t.Description,t.Amount,t.DateCreated,tranTypes.find(tt => tt.value == t.TransactionTypeID))}));
+            }
+            else{
+                self.transactions = ko.observableArray([new TransactionModel("test",0,"test")])
+            }
+            self.addTransaction = function () {
+                if (self.Desc() != null && self.Amount() != null && self.Date() != null && tranTypes.find(tt => tt.value == self.TransactionType())) {
+                    var t = new TransactionModel(0,self.Desc(), parseInt(self.Amount()), self.Date(),tranTypes.find(tt => tt.value == self.TransactionType()));
+                    var data = ko.toJSON(t);
+                    $.postJSON("AddTransaction", data, function(data, status, xhr) {
+                        // This callback is executed if the post was successful
+                        t.ID = data.ID
+                        self.transactions.push(t);
+                        alert("successfully added the record");
+                    });
+
+                }
+                else
+                {
+                    alert("All data not entered!!!")
+                }
+            };
+            self.removeTransaction = function (t) {
+                if(confirm("Are you sure you want to delete the record?")){
+                    var data = ko.toJSON(t);
+                    $.postJSON("/Finance/RemoveTransaction", data, function(data, status, xhr) {
+                        self.transactions.remove(t);
+                        alert("successfully removed the record");
+                    });
+                }
+
+            }
+        }
+        ko.applyBindings(new DashBoardViewModel(transactions));
     </script>
 }
