@@ -3,5 +3,155 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@Scripts.Render("~/bundles/ko")
+@section Styles {
+    <style>
+        @@media (min-width: 576px) .bd-example {
+            padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
+        }
+
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: solid #f7f7f9;
+            border-width: .2rem;
+        }
+    </style>
+}
+@* Header *@
+<div class="row">
+    <h6>Workout:</h6>
+</div>
+@* Data Entry Form *@
+<div class="row">
+    <div class="bd-example" data-example-id="">
+        <form action="" data-bind="submit: addWorkout" class="form-inline">
+            <div class="form-group">
+                <label for="workoutDate" class="sr-only">Date</label>
+                <input id="workoutDate" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: WDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date" placeholder="Date" required />
+            </div>
+            <div class="form-group">
+                <label for="workout" class="sr-only">Exercise</label>
+                <input id="workout" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: WExercise" type="text" placeholder="Exercise" required />
+            </div>
+            <div class="form-group">
+                <label for="workoutReps" class="sr-only">Reps</label>
+                <input id="workoutReps" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: WReps" type="number" placeholder="Reps" required />
+            </div>
+            <div class="form-group">
+                <label for="workoutSets" class="sr-only">Sets</label>
+                <input id="workoutSets" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: WSets" type="number" placeholder="Sets" required />
+            </div>
+            <div class="form-group">
+                <label for="workoutWeight" class="sr-only">Weight</label>
+                <input id="workoutWeight" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: WWeight" type="number" placeholder="Weight" required />
+            </div>
+            <div class="form-group">
+                <label for="workoutComment" class="sr-only">Comment</label>
+                <input id="workoutComment" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: WComment" type="text" placeholder="Comment" required />
+            </div>
+            <button class="btn btn-success" data-bind="click: addWorkout">Add Workout</button>
+        </form>
+    </div>
+</div>
+
+@* Data Display Table *@
+<div class="row">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Exercise</th>
+                <th>Reps</th>
+                <th>Sets</th>
+                <th>Weight</th>
+                <th>Comment</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Workouts">
+            <tr>
+                <td data-bind="text: Date"></td>
+                <td data-bind="text: Exercise"></td>
+                <td data-bind="text: Reps"></td>
+                <td data-bind="text: Sets"></td>
+                <td data-bind="text: Weight"></td>
+                <td data-bind="text: Comments"></td>
+                <td><span class="icon icon-trash" data-bind='click: $root.removeWorkout' /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@* Script tag *@
+@section ViewModel {
+    <script type="text/javascript">
+        var Workouts = @Html.Raw(ViewBag.workouts);
+
+        var WorkoutModel = function (i, d, e, r, s, we, c) {
+            var self = this;
+            self.ID = i;
+            self.Date = ko.observable(new Date(d).toDateString());
+            self.Exercise = ko.observable(e);
+            self.Reps = ko.observable(r);
+            self.Sets = ko.observable(s);
+            self.Weight = ko.observable(we);
+            self.Comments = ko.observable(c);
+        }
+
+        function ViewModel(Activities) {
+            var self = this;
+            self.WDate = ko.observable('@DateTime.Now.ToString("yyyy-MM-dd")').extend({ required: true });
+            self.WExercise = ko.observable();
+            self.WReps = ko.observable();
+            self.WSets = ko.observable();
+            self.WWeight = ko.observable();
+            self.WComment = ko.observable();
+
+            if(Workouts)
+            {
+                self.Workouts = ko.observableArray(ko.utils.arrayMap(Workouts, function(w) {
+                    return new WorkoutModel(w.ID,w.Date,w.Exercise,w.Reps,w.Sets,w.Weight,w.Comments)}));
+            }
+            else{
+                self.Workouts = ko.observableArray([new WorkoutModel(0,'@DateTime.Now.Date',"test",0,0,0,"test")])
+            }
+
+            self.addWorkout = function () {
+                if (self.WDate() != null && self.WExercise() != null && self.WReps() != null && self.WSets() != null && self.WWeight() != null) {
+                    var a = new WorkoutModel(0, self.WDate(), self.WExercise(),  self.WReps(), self.WSets(), self.WWeight() ,self.WComment());
+                    var data = ko.toJSON(a);
+                    $.postJSON("AddWorkout", data, function(data, status, xhr) {
+                        // This callback is executed if the post was successful
+                        a.ID = data.ID
+                        self.Workouts.push(a);
+                        alert("successfully added the record");
+                    });
+
+                }
+                else
+                {
+                    alert("All data not entered!!!")
+                }
+            };
+
+            self.removeWorkout = function (a) {
+                if(confirm("Are you sure you want to delete the record?")){
+                    var data = ko.toJSON(a);
+                    $.postJSON("RemoveWorkout", data, function(data, status, xhr) {
+                        self.Workouts.remove(a);
+                        alert("successfully removed the record");
+                    });
+                }
+
+            }
+        }
+
+        ko.applyBindings(new ViewModel(Workouts));
+    </script>
+}
+
+
+
 

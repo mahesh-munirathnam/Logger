@@ -1,4 +1,4 @@
-namespace Logger.DAL
+namespace Logger.DAL.Domain
 {
     using System;
     using System.Collections.Generic;

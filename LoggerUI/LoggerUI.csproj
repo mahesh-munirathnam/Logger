@@ -177,6 +177,7 @@
     <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WorkoutController.cs" />
+    <Compile Include="Filters\SessionFilter.cs" />
     <Compile Include="Filters\AccessFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -354,6 +355,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\People\Subnav.cshtml" />
+    <Content Include="Views\People\Permissions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

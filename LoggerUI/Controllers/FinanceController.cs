@@ -1,13 +1,15 @@
 ﻿using Logger.BAL;
 using System.Web.Mvc;
 using System;
-using Logger.DAL;
+using Logger.DAL.Domain;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Configuration;
+using LoggerUI.Filters;
 
 namespace LoggerPortal.Controllers
 {
+    [SessionFilter]
     public class FinanceController : Controller
     {
         private UnitOfWork uow = new UnitOfWork(new DBEntities());
@@ -26,12 +28,12 @@ namespace LoggerPortal.Controllers
             if(Boolean.Parse(ConfigurationManager.AppSettings["IsDebug"]))
             {
                 t.CreatedBy = 1;
-                t.Person = uow.Persons.Get(1);
+                t.Person = uow.People.Get(1);
             }
             else
             {
                 t.CreatedBy = Convert.ToInt64(Session["UserID"]);
-                t.Person = uow.Persons.Get(Convert.ToInt64(Session["UserID"]));
+                t.Person = uow.People.Get(Convert.ToInt64(Session["UserID"]));
             }
             uow.Transactions.Add(t);
             uow.Complete();

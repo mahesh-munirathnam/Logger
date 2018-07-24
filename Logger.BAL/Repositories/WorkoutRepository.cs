@@ -5,9 +5,9 @@ using Logger.DAL.Domain;
 
 namespace Logger.BAL.Repositories
 {
-    public class PermissionRepository : Repository<Permission>,IPermissionRepository
+    public class WorkoutRepository : Repository<Workout>, IWorkoutRepository
     {
-        public PermissionRepository(DbContext context) : base(context)
+        public WorkoutRepository(DbContext context) : base(context)
         {
         }
 

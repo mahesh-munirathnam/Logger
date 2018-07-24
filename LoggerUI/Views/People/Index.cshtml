@@ -2,4 +2,208 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+
+@Scripts.Render("~/bundles/ko")
+@section Styles {
+    <style>
+        @@media (min-width: 576px) .bd-example {
+            padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
+        }
+
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: solid #f7f7f9;
+            border-width: .2rem;
+        }
+    </style>
+}
+@* Header *@
+<div class="row">
+    <h6>Settings:</h6>
+</div>
+<div class="row">
+    @Html.Partial("Subnav", new ViewDataDictionary { { "People", true } })
+</div>
+
+<div class="tab-content" id="pills-tabContent">
+
+    @* Data Entry Form *@
+    <div class="tab-pane show active" id="people"  role="tabpanel">
+        <div class="bd-example" data-example-id="">
+            <form action="" data-bind="submit: addPerson" class="form-inline">
+                <div class="form-group">
+                    <label for="PersonName" class="sr-only">Name</label>
+                    <input id="PersonName" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Name" type="text" placeholder="Name" required />
+                </div>
+                <div class="form-group">
+                    <label for="PersonMail" class="sr-only">Email</label>
+                    <input id="PersonMail" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Password" type="email" placeholder="Password" required />
+                </div>
+                <div class="form-group">
+                    <label for="PersonPWD" class="sr-only">Password</label>
+                    <input id="PersonPWD" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Email" type="text" placeholder="Email" required />
+                </div>
+                <div class="form-group">
+                    <label for="PersonIs_Active" class="sr-only">is Active</label>
+                    <input id="PersonIs_Active" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: Is_Active" type="text" placeholder="Is Active" required />
+                </div>
+                <button class="btn btn-success" data-bind="click: addPerson">Add Person</button>
+            </form>
+        </div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Log</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Activities">
+                <tr>
+                    <td data-bind="text: Date"></td>
+                    <td data-bind="text: StartTime"></td>
+                    <td data-bind="text: EndTime"></td>
+                    <td data-bind="text: Wlog"></td>
+                    <td><span class="icon icon-trash" data-bind='click: $root.removeActivity' /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @* Data Display Table *@
+    <div class="tab-pane show" id="permissions"  role="tabpanel">
+        <div class="bd-example" data-example-id="">
+            <form action="" data-bind="submit: addPermission" class="form-inline">
+                <div class="form-group">
+                    <label for="PermissionName" class="sr-only">Permission</label>
+                    <input id="PermissionName" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="value: PName" type="text" placeholder="Permission Name" required />
+                </div>
+                <button class="btn btn-success" data-bind="click: addPermission">Add Permission</button>
+            </form>
+        </div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Created By</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Permissions">
+                <tr>
+                    <td data-bind="text: ID"></td>
+                    <td data-bind="text: Name"></td>
+                    <td data-bind="text: CreatedBy"></td>
+                    <td><span class="icon icon-trash" data-bind='click: $root.removePermission' /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@* Script tag *@
+@section ViewModel {
+    <script type="text/javascript">
+        var People = @Html.Raw(ViewBag.people);
+        var Permissions = @Html.Raw(ViewBag.permissions);
+
+        var PeopleModel = function (i, n, p, e, a) {
+            var self = this;
+            self.ID = i;
+            self.Name = ko.observable(n);
+            self.Password = ko.observable(p);
+            self.Email = ko.observable(e);
+            self.Is_Active = ko.observable(a);
+        }
+
+        var PermissionModel = function (i, n, c) {
+            var self = this;
+            self.ID = i;
+            self.Name = ko.observable(n);
+            self.CreatedBy = ko.observable(p);
+        }
+
+        function ViewModel(People,Permissions) {
+            var self = this;
+            self.PName = ko.observable();
+            self.PPassword = ko.observable();
+            self.PEmail = ko.observable();
+            self.PIs_Active = ko.observable();
+            self.PEName = ko.observable();
+
+            if(People)
+            {
+                self.People = ko.observableArray(ko.utils.arrayMap(People, function(p) {
+                    return new PeopleModel(p.ID,p.Name,p.Password,p.Email,p.Is_Active)}));
+            }
+            else{
+                self.People = ko.observableArray([new PeopleModel(0,"test","test","test@test.com",true)])
+            }
+
+            if(Permissions)
+            {
+                self.Permissions = ko.observableArray(ko.utils.arrayMap(Permissions, function(p) {
+                    return new PermissionModel(p.ID,p.Name,p.CreatedBy)}));
+            }
+            else{
+                self.Permissions = ko.observableArray([new PermissionModel(0,"test","test")])
+            }
+
+            self.addPerson = function () {
+                if (self.PName() != null && self.PPassword() != null && self.PEmail() != null && self.PIs_Active() != null) {
+                    var p = new PeopleModel(0, self.PName(), self.PPassword(), self.PEmail(),self.PIs_Active());
+                    var data = ko.toJSON(p);
+                    $.postJSON("AddPerson", data, function(data, status, xhr) {
+                        // This callback is executed if the post was successful
+                        p.ID = data.ID
+                        self.People.push(p);
+                        alert("successfully added the record");
+                    });
+
+                }
+                else
+                {
+                    alert("All data not entered!!!")
+                }
+            };
+
+            self.addPermission = function () {
+                if (self.PName() != null && self.PPassword() != null && self.PEmail() != null && self.PIs_Active() != null) {
+                    var p = new PermissionModel(0, self.PEName(),0);
+                    var data = ko.toJSON(p);
+                    $.postJSON("AddPermission", data, function(data, status, xhr) {
+                        // This callback is executed if the post was successful
+                        p.ID = data.ID
+                        self.Permissions.push(p);
+                        alert("successfully added the record");
+                    });
+
+                }
+                else
+                {
+                    alert("All data not entered!!!")
+                }
+            };
+
+            self.removePerson = function (a) {
+                if(confirm("Are you sure you want to delete the record?")){
+                    var data = ko.toJSON(a);
+                    $.postJSON("RemovePerson", data, function(data, status, xhr) {
+                        self.People.remove(a);
+                        alert("successfully removed the record");
+                    });
+                }
+
+            }
+        }
+
+        ko.applyBindings(new ViewModel(People,Permissions));
+    </script>
+}
+
+

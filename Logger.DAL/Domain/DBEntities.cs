@@ -1,4 +1,4 @@
-namespace Logger.DAL
+namespace Logger.DAL.Domain
 {
     using System;
     using System.Data.Entity;
@@ -10,6 +10,7 @@ namespace Logger.DAL
         public DBEntities()
             : base("name=DBEntities")
         {
+
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
         }
@@ -20,6 +21,7 @@ namespace Logger.DAL
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<PersonPermission> PersonPermissions { get; set; }
         public virtual DbSet<PersonSession> PersonSessions { get; set; }
+        public virtual DbSet<Workout> Workouts { get; set; }
         public virtual DbSet<TransactionType> TransactionTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -58,6 +60,12 @@ namespace Logger.DAL
 
             modelBuilder.Entity<Person>()
                 .HasMany(e => e.TransactionTypes)
+                .WithRequired(e => e.Person)
+                .HasForeignKey(e => e.CreatedBy)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Person>()
+                .HasMany(e => e.Workouts)
                 .WithRequired(e => e.Person)
                 .HasForeignKey(e => e.CreatedBy)
                 .WillCascadeOnDelete(false);

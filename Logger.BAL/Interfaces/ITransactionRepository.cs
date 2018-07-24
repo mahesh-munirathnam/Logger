@@ -1,5 +1,5 @@
 ﻿using Logger.DAL.Core;
-using Logger.DAL;
+using Logger.DAL.Domain;
 
 namespace Logger.BAL.Interfaces
 {

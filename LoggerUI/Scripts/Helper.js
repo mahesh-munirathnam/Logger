@@ -18,6 +18,9 @@ jQuery["postJSON"] = function (url, data, callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: data,
-        success: callback
+        success: callback,
+        error: function (data) {
+            window.location.href = "/Error/Index";
+        }
     });
 };

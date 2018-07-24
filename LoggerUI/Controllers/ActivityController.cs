@@ -1,5 +1,6 @@
 ﻿using Logger.BAL;
-using Logger.DAL;
+using Logger.DAL.Domain;
+using LoggerUI.Filters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace LoggerPortal.Controllers
 {
+    [SessionFilter]
     public class ActivityController : Controller
     {
         private UnitOfWork uow = new UnitOfWork(new DBEntities());
@@ -27,12 +29,12 @@ namespace LoggerPortal.Controllers
             if (Boolean.Parse(ConfigurationManager.AppSettings["IsDebug"]))
             {
                 a.CreatedBy = 1;
-                a.Person = uow.Persons.Get(1);
+                a.Person = uow.People.Get(1);
             }
             else
             {
                 a.CreatedBy = Convert.ToInt64(Session["UserID"]);
-                a.Person = uow.Persons.Get(Convert.ToInt64(Session["UserID"]));
+                a.Person = uow.People.Get(Convert.ToInt64(Session["UserID"]));
             }
             uow.Activities.Add(a);
             uow.Complete();

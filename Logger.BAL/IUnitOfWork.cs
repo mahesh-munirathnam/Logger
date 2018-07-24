@@ -5,9 +5,12 @@ namespace Logger.BAL
 {
     public interface IUnitOfWork : IDisposable
     {
-        IPersonRepository Persons { get; }
+        IPersonRepository People { get; }
         IPermissionRepository Permissions { get; }
         IPersonPermissionRepository PersonPermissions { get; }
+        ITransactionRepository Transactions { get; }
+        IWorkoutRepository Workouts { get; }
+        IActivityRepository Activities { get; }
 
         int Complete();
     }

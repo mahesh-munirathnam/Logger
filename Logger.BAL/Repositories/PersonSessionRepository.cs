@@ -1,4 +1,4 @@
-﻿using Logger.DAL;
+﻿using Logger.DAL.Domain;
 using Logger.DAL.Core;
 using Logger.BAL.Interfaces;
 using System.Data.Entity;

@@ -1,4 +1,4 @@
-namespace Logger.DAL
+namespace Logger.DAL.Domain
 {
     using System;
     using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace Logger.DAL
             FinancialTransactions = new HashSet<FinancialTransaction>();
             PersonPermissions = new HashSet<PersonPermission>();
             TransactionTypes = new HashSet<TransactionType>();
+            Workouts = new HashSet<Workout>();
         }
 
         public long PersonId { get; set; }
@@ -54,5 +55,8 @@ namespace Logger.DAL
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionType> TransactionTypes { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Workout> Workouts { get; set; }
     }
 }

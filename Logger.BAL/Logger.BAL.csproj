@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IWorkoutRepository.cs" />
     <Compile Include="Interfaces\IPermissionRepository.cs" />
     <Compile Include="Interfaces\IPersonPermissionRepository.cs" />
     <Compile Include="Interfaces\IPersonRepository.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Interfaces\ITransactionRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\WorkoutRepository.cs" />
     <Compile Include="Repositories\ActivityRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />
     <Compile Include="Repositories\PersonPermissionRepository.cs" />

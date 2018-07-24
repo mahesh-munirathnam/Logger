@@ -6,30 +6,30 @@ namespace Logger.DAL.Domain
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Activity")]
-    public partial class Activity
+    [Table("Workout")]
+    public partial class Workout
     {
-        [Key]
-        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
-        [Key]
-        [Column(Order = 1, TypeName = "date")]
+        [Column(TypeName = "date")]
         public DateTime Date { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        public TimeSpan StartTime { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Exercise { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        public TimeSpan EndTime { get; set; }
+        public long Reps { get; set; }
 
-        [StringLength(500)]
-        public string WLog { get; set; }
+        public long Sets { get; set; }
+
+        [StringLength(50)]
+        public string Weight { get; set; }
 
         public long CreatedBy { get; set; }
+
+        [StringLength(50)]
+        public string Comments { get; set; }
 
         public virtual Person Person { get; set; }
     }

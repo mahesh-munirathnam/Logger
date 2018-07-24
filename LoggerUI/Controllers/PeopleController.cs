@@ -8,22 +8,83 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using LoggerUI.Models;
+using Logger.BAL;
+using Logger.DAL.Domain;
+using Newtonsoft.Json;
+using System.Configuration;
+using LoggerUI.Filters;
 
 namespace LoggerUI.Controllers
 {
     [Authorize]
+    [SessionFilter]
     public class PeopleController : Controller
     {
-        //
-        // GET: /Account/Login
 
-        [AllowAnonymous]
+        private UnitOfWork uow = new UnitOfWork(new DBEntities());
+
+        [AccessFilter]
         public ActionResult Index()
+        {
+            var people = uow.People.GetAll().ToList();
+            ViewBag.people = JsonConvert.SerializeObject(people);
+
+            var permissions = uow.Permissions.GetAll().ToList();
+            ViewBag.permissions = JsonConvert.SerializeObject(permissions);
+            return View();
+        }
+
+        [AccessFilter]
+        public ActionResult Permissions()
         {
             return View();
         }
 
-      
+        [AccessFilter]
+        public ActionResult PersonPermission()
+        {
+            return View();
+        }
+
+        public JsonResult AddPerson(Person p)
+        {
+            p.DateModified = DateTime.Now;
+            if (Boolean.Parse(ConfigurationManager.AppSettings["IsDebug"]))
+            {
+                p.CreatedBy = 1;
+            }
+            else
+            {
+                p.CreatedBy = Convert.ToInt64(Session["UserID"]);
+            }
+
+            uow.People.Add(p);
+            uow.Complete();
+            return Json(new { ID = p.PersonId });
+        }
+
+        public void RemovePerson(Person p)
+        {
+            p = uow.People.Get(p.PersonId);
+            p.Is_Active = false;
+            uow.Complete();
+        }
+
+        public JsonResult AddPermission(Permission p)
+        {
+            if (Boolean.Parse(ConfigurationManager.AppSettings["IsDebug"]))
+            {
+                p.CreatedBy = 1;
+            }
+            else
+            {
+                p.CreatedBy = Convert.ToInt64(Session["UserID"]);
+            }
+            uow.Permissions.Add(p);
+            uow.Complete();
+            return Json(new { ID = p.PermissionId });
+        }
+
         #region Helpers
 
         private ActionResult RedirectToLocal(string returnUrl)

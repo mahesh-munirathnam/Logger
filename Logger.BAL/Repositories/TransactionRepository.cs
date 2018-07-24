@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Logger.BAL.Interfaces;
-using Logger.DAL;
+using Logger.DAL.Domain;
 using Logger.DAL.Core;
 
 namespace Logger.BAL.Repositories

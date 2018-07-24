@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Logger.BAL;
-using Logger.DAL;
+using Logger.DAL.Domain;
 using LoggerPortal.Models;
 
 namespace LoggerPortal.Controllers
@@ -24,7 +24,7 @@ namespace LoggerPortal.Controllers
             {
                 using (var UnitOfWork = new UnitOfWork(new DBEntities()))
                 {
-                    var user = UnitOfWork.Persons.ValidUser(login.Email, login.Password);
+                    var user = UnitOfWork.People.ValidUser(login.Email, login.Password);
                     if (user != null)
                     {
                         Session["UserID"] = user.PersonId;

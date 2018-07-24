@@ -1,6 +1,7 @@
 ﻿using Logger.BAL;
 using Logger.BAL.Interfaces;
-using Logger.DAL;
+using Logger.DAL.Domain;
+using LoggerUI.Filters;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LoggerPortal.Controllers
 {
+    [SessionFilter]
     public class HomeController : Controller
     {
 

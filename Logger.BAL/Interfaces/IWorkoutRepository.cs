@@ -4,7 +4,7 @@ using Logger.DAL.Domain;
 namespace Logger.BAL.Interfaces
 {
 
-    public interface IActivityRepository : IRepository<Activity>
+    public interface IWorkoutRepository : IRepository<Workout>
     {
 
     }
