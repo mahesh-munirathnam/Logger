@@ -35,14 +35,17 @@ namespace LoggerUI.Controllers
         }
 
         [AccessFilter]
-        public ActionResult Permissions()
+        public ActionResult Permission(long PersonId)
         {
-            return View();
-        }
+            var Person = uow.People.Get(PersonId);
+            ViewBag.Person = JsonConvert.SerializeObject(Person);
 
-        [AccessFilter]
-        public ActionResult PersonPermission()
-        {
+            var personPermissions = Person.PersonPermissions;
+            ViewBag.personPermissions = JsonConvert.SerializeObject(personPermissions);
+
+            var permissions = uow.Permissions.GetAll().ToList();
+            ViewBag.permissions = JsonConvert.SerializeObject(permissions);
+
             return View();
         }
 
@@ -57,7 +60,7 @@ namespace LoggerUI.Controllers
             {
                 p.CreatedBy = Convert.ToInt64(Session["UserID"]);
             }
-
+            p.DateCreated = p.DateModified = DateTime.Now;
             uow.People.Add(p);
             uow.Complete();
             return Json(new { ID = p.PersonId });
@@ -67,6 +70,7 @@ namespace LoggerUI.Controllers
         {
             p = uow.People.Get(p.PersonId);
             p.Is_Active = false;
+            p.DateModified = DateTime.Now;
             uow.Complete();
         }
 
@@ -80,9 +84,40 @@ namespace LoggerUI.Controllers
             {
                 p.CreatedBy = Convert.ToInt64(Session["UserID"]);
             }
+            p.CreatedDate = DateTime.Now;
+            p.ModifiedDate = DateTime.Now;
             uow.Permissions.Add(p);
             uow.Complete();
             return Json(new { ID = p.PermissionId });
+        }
+
+        public void RemovePermission(Permission p)
+        {
+            p = uow.Permissions.Get(p.PermissionId);
+            if (p != null)
+            {
+                uow.Permissions.Remove(p);
+                uow.Complete();
+            }
+        }
+
+        public JsonResult AddPersonPermission(PersonPermission p)
+        {
+            if (Boolean.Parse(ConfigurationManager.AppSettings["IsDebug"]))
+            {
+                p.CreatedBy = 1;
+                p.ModifiedBy = 1;
+            }
+            else
+            {
+                p.CreatedBy = Convert.ToInt64(Session["UserID"]);
+                p.ModifiedBy = Convert.ToInt64(Session["UserID"]);
+            }
+            p.CreatedDate = DateTime.Now;
+            p.ModifiedDate = DateTime.Now;
+            uow.PersonPermissions.Add(p);
+            uow.Complete();
+            return Json(new { ID = p.PersonPermissionId });
         }
 
         #region Helpers

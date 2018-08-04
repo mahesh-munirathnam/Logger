@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Permission";
+}
+@Scripts.Render("~/bundles/ko")
+@section Styles {
+    <style>
+        @@media (min-width: 576px) .bd-example {
+            padding: 1.5rem; margin-right: 0; margin-bottom: 0; margin-left: 0; border-width: .2rem;
+        }
+
+        .bd-example {
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: solid #f7f7f9;
+            border-width: .2rem;
+        }
+    </style>
+}
+@* Header *@
+<div class="row">
+    <h6>Person: <span data-bind="text: PersonName"></span></h6>
+</div>
+@* Data Entry Form *@
+<div class="row">
+    <div class="bd-example" data-example-id="">
+        <form action="" data-bind="submit: addPermission" class="form-inline">
+            <div class="form-group">
+                <label for="PermissionName" class="sr-only">Permission</label>
+                <select id="PermissionName" class="form-control mb-2 mr-sm-2 mb-sm-0" data-bind="options: Permissions, optionsCaption: 'Select',optionsText:'PermissionName',optionsValue:'PermissionId', value:Permission"></select>
+            </div>
+            <button class="btn btn-success" data-bind="click: addPermission">Add Permission</button>
+        </form>
+    </div>
+</div>
+@* Data Display Table *@
+<div class="row">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Permission ID</th>
+                <th>Permission Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: PersonPermissions">
+            <tr>
+                <td data-bind="text: PermissionID"></td>
+                <td data-bind="text: PermissionName"></td>
+                <td><span class="icon icon-trash" data-bind='click: $root.removePermission' /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@* Script tag *@
+@section ViewModel {
+    <script type="text/javascript">
+        var PersonPermissions = @Html.Raw(ViewBag.personPermissions);
+        var permissions = @Html.Raw(ViewBag.permissions);
+        var Person = @Html.Raw(ViewBag.Person);
+
+        var PermissionModel = function (i, pm, ps) {
+            var self = this;
+            self.PersonPermissionId = i;
+            self.PermissionID = ko.observable(pm);
+            self.PermissionName = permissions.find(p=>p.PermissionId == 1).PermissionName;
+            self.PersonID = ko.observable(ps);
+        }
+
+        function ViewModel(PersonPermissions) {
+            var self = this;
+            self.Permissions = ko.observableArray(permissions);
+            self.Permission = ko.observable().extend({ required: true });
+            self.PersonName = Person.Name;
+
+            if(PersonPermissions)
+            {
+                self.PersonPermissions = ko.observableArray(ko.utils.arrayMap(PersonPermissions, function(p) {
+                    return new PermissionModel(p.PersonPermissionId,p.PermissionID,p.PersonID)}));
+            }
+            else{
+                self.PersonPermissions = ko.observableArray([new PermissionModel(0,0,Person.PersonId)])
+            }
+
+            self.addPermission = function () {
+                if (self.Permission() != null) {
+                    var p = new PermissionModel(0,self.Permission(),Person.PersonId);
+                    var data = ko.toJSON(p);
+                    $.postJSON("/People/AddPersonPermission", data, function(data, status, xhr) {
+                        // This callback is executed if the post was successful
+                        p.PersonPermissionId = data.PersonPermissionId
+                        self.PersonPermissions.push(p);
+                        alert("successfully added the record");
+                    });
+
+                }
+                else
+                {
+                    alert("All data not entered!!!")
+                }
+            };
+
+            self.removePermission = function (p) {
+                if(confirm("Are you sure you want to delete the record?")){
+                    var data = ko.toJSON(p);
+                    $.postJSON("RemovePermission", data, function(data, status, xhr) {
+                        self.PersonPermissions.remove(p);
+                        alert("successfully removed the record");
+                    });
+                }
+
+            };
+        }
+
+        ko.applyBindings(new ViewModel(PersonPermissions));
+    </script>
+}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -21,6 +22,15 @@ namespace LoggerUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            // Get objects.
+            HttpContext context = base.Context;
+            HttpResponse response = context.Response;
+            // Complete.
+           // base.CompleteRequest();
         }
 
         ///// <summary>
